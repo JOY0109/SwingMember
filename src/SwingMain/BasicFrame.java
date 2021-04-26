@@ -1,4 +1,4 @@
-   package Swing;
+   package SwingMain;
 
 
 import java.awt.GridBagConstraints;

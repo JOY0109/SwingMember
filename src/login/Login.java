@@ -26,8 +26,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Swing.BasicFrame;
-import Swing.MasterTable;
+import SwingMain.BasicFrame;
+import SwingMain.MasterTable;
 
 public class Login extends JFrame {
 

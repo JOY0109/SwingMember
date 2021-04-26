@@ -1,4 +1,4 @@
-package Swing;
+package SwingMain;
 
 //메인 시작 화면
 public class BasicFrameMain {

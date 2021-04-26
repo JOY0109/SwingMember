@@ -1,4 +1,4 @@
-package Swing;
+package SwingMain;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -24,7 +24,7 @@ import DB.MemberDao;
 import DB.SqlParameter;
 
 
-public class SignIn extends JDialog implements ActionListener{
+public class comentModifyPanel extends JDialog implements ActionListener{
 
 	JPanel p;
 	JPasswordField pfPwd;
@@ -37,13 +37,13 @@ public class SignIn extends JDialog implements ActionListener{
 	
 	JButton btnInsert,btnCancle,btnUpdate,btnDelete;
 
-	public SignIn() {
+	public comentModifyPanel() {
 		this.setModal(true);
 		initConponent();
 	}
 
 	private void initConponent() {
-		this.setTitle("회원가입");
+		this.setTitle("코멘트 수정 - 비번/이름은 수정 불가 - 수정 시 아이디 필수입력");
 		
 		gb=new GridBagLayout();
 		this.setLayout(gb);
@@ -56,11 +56,7 @@ public class SignIn extends JDialog implements ActionListener{
 		tfid=new JTextField(20);
 		gbAdd(jlId, 0, 0, 1, 1);
 		gbAdd(tfid, 1, 0, 3, 1);
-		
-		JLabel jlPW=new JLabel(" 비밀번호");
-		pfPwd =new JPasswordField(20);
-		gbAdd(jlPW, 0, 1, 1, 1);
-		gbAdd(pfPwd, 1, 1, 3, 1);
+
 		
 		JLabel jlName=new JLabel("이름");
 		tfName = new JTextField(20);
@@ -102,20 +98,14 @@ public class SignIn extends JDialog implements ActionListener{
 		
 		//버튼들 
 		JPanel pButton=new JPanel();
-		btnInsert=new JButton("가입");
 		btnUpdate=new JButton("수정");
-		btnDelete=new JButton("탈퇴");
 		btnCancle=new JButton("취소");
-		pButton.add(btnInsert);
 		pButton.add(btnUpdate);
-		pButton.add(btnDelete);
 		pButton.add(btnCancle);
 		gbAdd(pButton, 0, 11, 4, 1);
 		
 		//버튼 이벤트 
-		this.btnInsert.addActionListener(this);
 		this.btnCancle.addActionListener(this);
-		this.btnDelete.addActionListener(this);
 		this.btnUpdate.addActionListener(this);
 		
 		
@@ -130,14 +120,9 @@ public class SignIn extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton btn=(JButton) e.getSource();
 		switch (btn.getText()) {
-		case "가입":
-			insertMember();
-			break;
 		case "수정": 
 			updateMember();
 			break;
-		case "탈퇴": 
-			deletMember(); break;
 		case "취소":
 			this.dispose();//현재 창 닫기 
 			//System.exit(-1);//프로그램 강제종료
@@ -146,22 +131,12 @@ public class SignIn extends JDialog implements ActionListener{
 		}
 		
 	}
-	
-	//회원 탈퇴 처리 
-	private void deletMember() {
-		MemberDao mDao=new MemberDao();
-		SqlParameter sp=getViewData();
-		mDao.deletMem(sp); ////DAO에 매소드 만들어서 연결 
-		System.out.println("탈퇴 완료");
-		this.dispose(); //꺼짐
-		
-	}
 
 	//회원정보 수정 처리
 	private void updateMember() {
 		MemberDao mDao=new MemberDao();
 		SqlParameter sp=getViewData();
-		boolean ok= mDao.updateMem(sp); //DAO에 매소드 만들어서 연결 
+		boolean ok= mDao.updateComents(sp); //DAO에 매소드 만들어서 연결 
 		System.out.println(ok);
 		if(ok) {
 			System.out.println("수정됐습니다");
@@ -170,15 +145,7 @@ public class SignIn extends JDialog implements ActionListener{
 		else System.out.println("에러");	
 	}
 
-	//회원가입 처리 
-	private void insertMember() {
-	 MemberDao mDao=new MemberDao();
-	 SqlParameter sp=getViewData(); //화면에서 입력받기
-	 mDao.insertMember(sp);
-	 System.out.println("가입완료");
-	 this.dispose(); //꺼짐
-		
-	}
+
 	
 	
 	//화면에서 입력 받은 내용 전부 여기에 담기
@@ -188,13 +155,13 @@ public class SignIn extends JDialog implements ActionListener{
 		
 		String userid= this.tfid.getText();
 		sp.setUserid(userid);
-		@SuppressWarnings("deprecation")
-		String userpw=this.pfPwd.getText();
-		sp.setUserpw(userpw);
+//		@SuppressWarnings("deprecation")
+//		String userpw=this.pfPwd.getText();
+//		sp.setUserpw(userpw);
 
-		String username=this.tfName.getText();
-		sp.setUsername(username);
-		
+//		String username=this.tfName.getText();
+//		sp.setUsername(username);
+//		
 		String phonNum=this.tfphone.getText();
 		sp.setPhone(phonNum);
 		
